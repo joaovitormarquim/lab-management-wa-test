@@ -6,6 +6,7 @@ import { LabsRepository } from './labs.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { NotFoundException } from '@nestjs/common';
 import { ForbiddenException } from '@nestjs/common';
+import { UpdateLabDto } from './dto/update-lab.dto';
 
 @Injectable()
 export class LabsService {
@@ -35,11 +36,11 @@ export class LabsService {
     return lab;
   }
 
-  public async updateLab(id: string, createLabDto: CreateLabDto): Promise<Lab> {
+  public async updateLab(id: string, UpdateLabDto: UpdateLabDto): Promise<Lab> {
     const lab: Lab = await this.getLabById(id);
     const updatedLab = {
       ...lab,
-      ...createLabDto,
+      ...UpdateLabDto,
     };
     await this.labsRepository.save(updatedLab);
     return updatedLab;

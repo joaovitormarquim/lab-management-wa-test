@@ -10,5 +10,5 @@ export class UpdateLabDto {
 
   @IsString()
   @IsEnum(LabStatus)
-  status: string;
+  status: LabStatus;
 }
