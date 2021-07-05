@@ -1,8 +1,10 @@
+import { Association } from 'src/associations/associations.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -21,6 +23,9 @@ export class Lab {
 
   @Column()
   status: LabStatus;
+
+  @OneToMany(() => Association, (association) => association.lab)
+  associations: Association[];
 
   @CreateDateColumn()
   created_at: Date;
