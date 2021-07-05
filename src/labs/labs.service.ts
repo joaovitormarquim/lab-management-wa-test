@@ -5,6 +5,7 @@ import { Lab } from './labs.entity';
 import { LabsRepository } from './labs.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { NotFoundException } from '@nestjs/common';
+import { ForbiddenException } from '@nestjs/common';
 
 @Injectable()
 export class LabsService {
@@ -42,5 +43,13 @@ export class LabsService {
     };
     await this.labsRepository.save(updatedLab);
     return updatedLab;
+  }
+
+  public async deleteLab(id: string): Promise<void> {
+    const lab: Lab = await this.getLabById(id);
+    if (lab.status === LabStatus.INACTIVE) {
+      throw new ForbiddenException('Only active labs can be deleted');
+    }
+    await this.labsRepository.softDelete(lab.id);
   }
 }

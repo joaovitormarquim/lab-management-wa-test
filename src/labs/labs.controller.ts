@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateLabDto } from './dto/create-lab.dto';
 import { UpdateLabDto } from './dto/update-lab.dto';
@@ -26,5 +34,10 @@ export class LabsController {
     @Param('id') id: string,
   ): Promise<Lab> {
     return this.labsService.updateLab(id, updateLabDto);
+  }
+
+  @Delete('/:id')
+  public deleteLab(@Param('id') id: string): Promise<void> {
+    return this.labsService.deleteLab(id);
   }
 }

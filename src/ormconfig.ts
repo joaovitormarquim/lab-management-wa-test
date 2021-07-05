@@ -19,7 +19,6 @@ const config: ConnectionOptions = {
   synchronize: false,
   migrationsRun: false,
   logging: true,
-  logger: 'file',
   migrations: [__dirname + '/shared/migrations/**/*{.ts,.js}'],
   cli: {
     migrationsDir: 'src/shared/migrations',
