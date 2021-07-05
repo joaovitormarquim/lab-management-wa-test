@@ -24,9 +24,9 @@ export class Exam {
 
   @Column()
   @ApiProperty({
-    description: 'The exam id',
+    description: 'The exam name',
     type: 'string',
-    format: 'uuid',
+    example: 'Blood Count',
   })
   name: string;
 
