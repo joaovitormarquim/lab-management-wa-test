@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
+import { CreateLabDto } from './dto/create-lab.dto';
 import { Lab } from './labs.model';
 import { LabsService } from './labs.service';
 
@@ -12,10 +13,7 @@ export class LabsController {
   }
 
   @Post()
-  public createLab(
-    @Body('name') name: string,
-    @Body('address') address: string,
-  ): Lab {
-    return this.labsService.createLab(name, address);
+  public createLab(@Body() createLabDto: CreateLabDto): Lab {
+    return this.labsService.createLab(createLabDto);
   }
 }

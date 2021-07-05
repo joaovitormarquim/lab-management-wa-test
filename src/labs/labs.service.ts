@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Lab, LabStatus } from './labs.model';
 import { v4 as uuid } from 'uuid';
+import { CreateLabDto } from './dto/create-lab.dto';
 
 @Injectable()
 export class LabsService {
@@ -10,11 +11,10 @@ export class LabsService {
     return this.labs;
   }
 
-  public createLab(name: string, address: string): Lab {
+  public createLab(createLabDto: CreateLabDto): Lab {
     const lab: Lab = {
       id: uuid(),
-      name,
-      address,
+      ...createLabDto,
       status: LabStatus.ACTIVE,
     };
     this.labs.push(lab);
