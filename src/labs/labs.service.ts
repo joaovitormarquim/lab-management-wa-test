@@ -4,6 +4,7 @@ import { CreateLabDto } from './dto/create-lab.dto';
 import { Lab } from './labs.entity';
 import { LabsRepository } from './labs.repository';
 import { InjectRepository } from '@nestjs/typeorm';
+import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class LabsService {
@@ -16,8 +17,12 @@ export class LabsService {
     return this.labsRepository.find({ where: { status: LabStatus.ACTIVE } });
   }
 
-  public async getLabsById(id: string): Promise<Lab> {
-    return this.labsRepository.findOne(id);
+  public async getLabById(id: string): Promise<Lab> {
+    const lab: Lab = await this.labsRepository.findOne(id);
+    if (!lab) {
+      throw new NotFoundException(`Lab with id '${id}' not found`);
+    }
+    return lab;
   }
 
   public async createLab(createLabDto: CreateLabDto): Promise<Lab> {
@@ -27,5 +32,15 @@ export class LabsService {
     });
     await this.labsRepository.save(lab);
     return lab;
+  }
+
+  public async updateLab(id: string, createLabDto: CreateLabDto): Promise<Lab> {
+    const lab: Lab = await this.getLabById(id);
+    const updatedLab = {
+      ...lab,
+      ...createLabDto,
+    };
+    await this.labsRepository.save(updatedLab);
+    return updatedLab;
   }
 }
