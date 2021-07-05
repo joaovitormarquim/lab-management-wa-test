@@ -8,6 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { Lab } from 'src/labs/labs.entity';
 import { CreateExamDto } from './dto/create-exam.dto';
 import { UpdateExamDto } from './dto/update-exam.dto';
 import { Exam } from './exams.entity';
@@ -39,5 +40,10 @@ export class ExamsController {
   @Delete('/:id')
   public deleteExam(@Param('id') id: string): Promise<void> {
     return this.examsService.deleteExam(id);
+  }
+
+  @Get('/:name/associated-labs')
+  public getAssociatedLabs(@Param('name') name: string): Promise<Lab[]> {
+    return this.examsService.getAssociatedLabs(name);
   }
 }

@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { NotFoundException } from '@nestjs/common';
 import { ForbiddenException } from '@nestjs/common';
 import { UpdateExamDto } from './dto/update-exam.dto';
+import { Lab } from 'src/labs/labs.entity';
 
 @Injectable()
 export class ExamsService {
@@ -55,5 +56,16 @@ export class ExamsService {
       throw new ForbiddenException('Only active exams can be deleted');
     }
     await this.examsRepository.softDelete(exam.id);
+  }
+
+  public async getAssociatedLabs(name: string): Promise<Lab[]> {
+    const exam: Exam = await this.examsRepository.findOne({
+      where: { name },
+      relations: ['associations'],
+    });
+    if (!exam) {
+      throw new NotFoundException(`Exam with name '${name}' does not exists`);
+    }
+    return exam.associations.map((association) => association.lab);
   }
 }

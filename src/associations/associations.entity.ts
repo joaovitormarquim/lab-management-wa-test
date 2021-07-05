@@ -25,7 +25,7 @@ export class Association {
   @JoinColumn({ name: 'exam_id' })
   exam: Exam;
 
-  @ManyToOne(() => Lab, (lab) => lab.associations)
+  @ManyToOne(() => Lab, (lab) => lab.associations, { eager: true })
   @JoinColumn({ name: 'lab_id' })
   lab: Lab;
 
