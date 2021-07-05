@@ -42,6 +42,9 @@ export class ExamsService {
     updateExam: UpdateExamDto,
   ): Promise<Exam> {
     const exam: Exam = await this.getExamById(id);
+    if (!exam) {
+      throw new NotFoundException(`The exam with id '${id}' does not exists`);
+    }
     const updatedExam = {
       ...exam,
       ...updateExam,
