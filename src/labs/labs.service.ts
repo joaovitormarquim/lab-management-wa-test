@@ -1,27 +1,31 @@
 import { Injectable } from '@nestjs/common';
-import { Lab, LabStatus } from './labs.model';
-import { v4 as uuid } from 'uuid';
+import { LabStatus } from './lab-status.enum';
 import { CreateLabDto } from './dto/create-lab.dto';
+import { Lab } from './labs.entity';
+import { LabsRepository } from './labs.repository';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class LabsService {
-  private labs: Lab[] = [];
+  constructor(
+    @InjectRepository(LabsRepository)
+    private labsRepository: LabsRepository,
+  ) {}
 
-  public getAllLabs(): Lab[] {
-    return this.labs;
+  public async getAllActiveLabs(): Promise<Lab[]> {
+    return this.labsRepository.find({ where: { status: LabStatus.ACTIVE } });
   }
 
-  public getLabsById(id: string): Lab {
-    return this.labs.find((task) => task.id === id);
+  public async getLabsById(id: string): Promise<Lab> {
+    return this.labsRepository.findOne(id);
   }
 
-  public createLab(createLabDto: CreateLabDto): Lab {
-    const lab: Lab = {
-      id: uuid(),
+  public async createLab(createLabDto: CreateLabDto): Promise<Lab> {
+    const lab: Lab = this.labsRepository.create({
       ...createLabDto,
       status: LabStatus.ACTIVE,
-    };
-    this.labs.push(lab);
+    });
+    await this.labsRepository.save(lab);
     return lab;
   }
 }

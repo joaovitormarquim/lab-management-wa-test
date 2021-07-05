@@ -1,9 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { LabStatus } from './lab-status.enum';
 
-@Entity()
+@Entity('labs')
 export class Lab {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column()
   name: string;
@@ -12,5 +13,5 @@ export class Lab {
   address: string;
 
   @Column()
-  active: string;
+  status: LabStatus;
 }
