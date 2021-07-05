@@ -11,6 +11,10 @@ export class LabsService {
     return this.labs;
   }
 
+  public getLabsById(id: string): Lab {
+    return this.labs.find((task) => task.id === id);
+  }
+
   public createLab(createLabDto: CreateLabDto): Lab {
     const lab: Lab = {
       id: uuid(),
