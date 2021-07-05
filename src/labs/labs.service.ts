@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { LabStatus } from './lab-status.enum';
+import { LabStatus } from './enum/lab-status.enum';
 import { CreateLabDto } from './dto/create-lab.dto';
 import { Lab } from './labs.entity';
 import { LabsRepository } from './labs.repository';

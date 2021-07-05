@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { LabStatus } from './lab-status.enum';
+import { LabStatus } from './enum/lab-status.enum';
 
 @Entity('labs')
 export class Lab {

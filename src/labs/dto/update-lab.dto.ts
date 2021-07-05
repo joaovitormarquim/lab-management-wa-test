@@ -1,5 +1,5 @@
 import { IsEnum, IsString } from 'class-validator';
-import { LabStatus } from '../lab-status.enum';
+import { LabStatus } from '../enum/lab-status.enum';
 
 export class UpdateLabDto {
   @IsString()
