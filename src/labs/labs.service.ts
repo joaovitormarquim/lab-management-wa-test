@@ -46,10 +46,9 @@ export class LabsService {
         `Labs that performs the exam '${getNearestLabDto.examName}' were not found`,
       );
     }
-    const { latitude, longitude } = getNearestLabDto;
     const { status, data } = await this.httpService
       .get(
-        `${process.env.OPEN_WEATHER_BASE_URL}?lat=${latitude}&lon=${longitude}&appid=${process.env.OPEN_WEATHER_KEY}`,
+        `${process.env.OPEN_WEATHER_BASE_URL}?lat=${nearestLab.latitude}&lon=${nearestLab.longitude}&appid=${process.env.OPEN_WEATHER_KEY}`,
       )
       .toPromise();
     if (status !== HttpStatus.OK) {
@@ -57,7 +56,6 @@ export class LabsService {
         'The temperature service is unavailable',
       );
     }
-    console.log(data.main.temp);
     return {
       ...nearestLab,
       temperature: this.convertKelvinToCelsius(data.main.temp),
