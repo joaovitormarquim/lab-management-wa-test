@@ -37,6 +37,22 @@ export class Lab {
   })
   address: string;
 
+  @Column({ type: 'double precision' })
+  @ApiProperty({
+    description: 'Latitude of the lab',
+    type: 'double',
+    example: '77.0364',
+  })
+  latitude: number;
+
+  @Column({ type: 'double precision' })
+  @ApiProperty({
+    description: 'Longitude of the lab',
+    type: 'double',
+    example: '38.895',
+  })
+  longitude: number;
+
   @Column()
   @ApiProperty({
     description: 'The status of the lab',

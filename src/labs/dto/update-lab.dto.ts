@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsString } from 'class-validator';
 import { LabStatus } from '../enum/lab-status.enum';
 
 export class UpdateLabDto {
@@ -27,4 +27,20 @@ export class UpdateLabDto {
     enum: [...Object.values(LabStatus)],
   })
   status: LabStatus;
+
+  @IsNumber()
+  @ApiProperty({
+    description: 'Latitude of the lab',
+    type: 'double',
+    example: '77.0364',
+  })
+  latitude: number;
+
+  @IsNumber()
+  @ApiProperty({
+    description: 'Longitude of the lab',
+    type: 'double',
+    example: '38.895',
+  })
+  longitude: number;
 }

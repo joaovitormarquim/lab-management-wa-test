@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateLabDto {
   @IsNotEmpty()
@@ -19,4 +19,22 @@ export class CreateLabDto {
     example: 'Rua das Creoulas, 259',
   })
   address: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty({
+    description: 'Latitude of the lab',
+    type: 'double',
+    example: '77.0364',
+  })
+  latitude: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty({
+    description: 'Longitude of the lab',
+    type: 'double',
+    example: '38.895',
+  })
+  longitude: number;
 }
