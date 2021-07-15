@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumberString, IsString } from 'class-validator';
 
 export class GetNearestLabDto {
   @IsNotEmpty()
@@ -12,7 +12,7 @@ export class GetNearestLabDto {
   examName: string;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberString()
   @ApiProperty({
     description: 'Latitude of the lab',
     type: 'double',
@@ -21,7 +21,7 @@ export class GetNearestLabDto {
   latitude: number;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberString()
   @ApiProperty({
     description: 'Longitude of the lab',
     type: 'double',

@@ -42,7 +42,7 @@ export class LabsController {
   })
   public getNearestLabByExamName(
     @Query() getNearestLabDto: GetNearestLabDto,
-  ): Promise<void> {
+  ): Promise<Lab> {
     return this.labsService.getNearestLabByExamName(getNearestLabDto);
   }
 

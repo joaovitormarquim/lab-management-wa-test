@@ -30,7 +30,7 @@ export class LabsService {
 
   public async getNearestLabByExamName(
     getNearestLabDto: GetNearestLabDto,
-  ): Promise<void> {
+  ): Promise<Lab> {
     const [nearestLab] =
       await this.labsRepository.getLabsByExamNameOrderedByNearestLocation(
         getNearestLabDto,
@@ -41,6 +41,8 @@ export class LabsService {
         `Labs that performs the exam '${getNearestLabDto.examName}' were not found`,
       );
     }
+
+    return nearestLab;
   }
 
   public async createLab(createLabDto: CreateLabDto): Promise<Lab> {
