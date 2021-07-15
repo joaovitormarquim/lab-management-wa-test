@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsEmpty, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { LabStatus } from '../enum/lab-status.enum';
 
 export class CreateLabDto {
   @IsNotEmpty()
@@ -37,4 +38,7 @@ export class CreateLabDto {
     example: '38.895',
   })
   longitude: number;
+
+  @IsEmpty()
+  status?: LabStatus;
 }

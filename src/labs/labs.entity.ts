@@ -61,6 +61,14 @@ export class Lab {
   })
   status: LabStatus;
 
+  @Column()
+  @ApiProperty({
+    description: 'The geolocation point of the lab',
+    type: 'string',
+    example: 'POINT(38.895 77.0364)',
+  })
+  geolocation: string;
+
   @OneToMany(() => Association, (association) => association.lab)
   associations: Association[];
 

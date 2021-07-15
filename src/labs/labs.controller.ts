@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import {
   ApiCreatedResponse,
@@ -15,6 +16,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { CreateLabDto } from './dto/create-lab.dto';
+import { GetNearestLabDto } from './dto/get-nearest-lab.dto';
 import { UpdateLabDto } from './dto/update-lab.dto';
 import { Lab } from './labs.entity';
 import { LabsService } from './labs.service';
@@ -31,6 +33,17 @@ export class LabsController {
   })
   public getAllActiveLabs(): Promise<Lab[]> {
     return this.labsService.getAllActiveLabs();
+  }
+
+  @Get('/nearest')
+  @ApiOkResponse({
+    description: 'The nearest lab that performs the requested exam.',
+    type: Lab,
+  })
+  public getNearestLabByExamName(
+    @Query() getNearestLabDto: GetNearestLabDto,
+  ): Promise<void> {
+    return this.labsService.getNearestLabByExamName(getNearestLabDto);
   }
 
   @Post()
